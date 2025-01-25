@@ -1,12 +1,14 @@
-  
+<!-- <div id="loading"></div> -->
     <div id="page">
     </div>
     <div class="bg-white topbar">
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-8 ">
            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-            <!-- <a class="navbar-brand brand-logo " href="dashboard.php"><img class="img-avatar" style="height: 70px; width: auto;" src="assets/images/logo.svg" alt=""></a> -->
+            <a class="navbar-brand brand-logo " href="dashboard.php"><img class="img-avatar" style="height: 60px; width: auto;" src="assets/images/logo.svg" alt=""></a>
+
           </div>          
+          <h5 class="text-center">Event Management System</h5>
         </div>
         <div class="col-md-4">
           <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 d-flex flex-row bg-white">
@@ -28,20 +30,9 @@
             ?>
             <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
               <div class="nav-profile-img">
-                <?php 
-                if($row->Photo=="avatar15.jpg")
-                { 
-                  ?>
-                  <img class="img-avatar" src="assets/img/avatars/avatar15.jpg" alt="">
-                  <?php 
-                } else { 
-                  ?>
-                  <img class="img-avatar" src="assets/img/profileimages/<?php  echo $row->Photo;?>" alt=""> 
-                  <?php 
-                } ?>
               </div>
               <div class="nav-profile-text ">
-                <p class="mb-1 text-dark"><?php  echo $row->FirstName;?> <?php  echo $row->LastName;?></p>
+                <p class="mb-1 text-dark"><?php  echo $row->firstName;?> <?php  echo $row->lastName;?></p>
               </div>
             </a>
             <?php

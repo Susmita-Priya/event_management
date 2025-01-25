@@ -22,7 +22,7 @@ if (isset($_POST['login'])) {
             $_SESSION['id'] = $result->id;          
             $_SESSION['login'] = $result->email;  
 
-            echo "<script>alert('Login successful');</script>";
+            // echo "<script>alert('Login successful');</script>";
             // Redirect to the dashboard
             echo "<script type='text/javascript'> document.location ='dashboard.php'; </script>";
         } else {

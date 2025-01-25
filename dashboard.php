@@ -15,12 +15,8 @@ check_login();
     
 
     <div class="container-fluid page-body-wrapper">
-
-
       <div class="main-panel"><br>
-
         <div class="content-wrapper">
-
           <div class="row">
             <div class="col-md-6">
               <div class="row">
