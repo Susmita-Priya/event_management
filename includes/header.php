@@ -3,13 +3,13 @@
     </div>
     <div class="bg-white topbar">
       <div class="row">
-        <div class="col-md-8 ">
+        <!-- <div class="col-md-8 ">
            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
             <a class="navbar-brand brand-logo " href="dashboard.php"><img class="img-avatar" style="height: 60px; width: auto;" src="assets/images/logo.svg" alt=""></a>
 
           </div>          
           <h5 class="text-center">Event Management System</h5>
-        </div>
+        </div> -->
         <div class="col-md-4">
           <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 d-flex flex-row bg-white">
           <div class="navbar-menu-wrapper d-flex align-items-stretch w-100 ">
@@ -66,26 +66,12 @@
             <a class="nav-link" href="dashboard.php">Dashboard</a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link" href="manage_event.php">Manage Events</a>
+            <a class="nav-link" href="manageEvent.php">Manage Events</a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link" href="manage_service.php">Manage Service</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Booking management</a>
-            <div class="dropdown-menu  navbar-dropdown" aria-labelledby="dropdown05">
-              <a class="dropdown-item" href="new_bookings.php">New Bookings</a>
-              <a class="dropdown-item" href="approved_bookings.php">Approved Bookings</a>
-              <a class="dropdown-item" href="cancelled_bookings.php">Cancelled Bookings</a>
-            </div>
+            <a class="nav-link" href="attendeeReg.php">Attendee Registration</a>
           </li>
 
-            <li class="nav-item dropdown">
-            <a class="nav-link" href="companyprofile.php">Company</a>
-          </li>
-
-          
-           
          <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reports</a>
             <div class="dropdown-menu  navbar-dropdown" aria-labelledby="dropdown05">
@@ -96,13 +82,8 @@
 
             </div>
           </li>
-
-        
-    
         </ul>
 
-         <ul class="navbar-nav navbar-nav-right">
-        </ul>
       </div>
     </nav>
 

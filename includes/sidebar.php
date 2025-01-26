@@ -8,7 +8,6 @@
                                 <img class="img-avatar" src="assets/img/avatars/avatar15.jpg" alt="">
                                 
                         </div>
-                        <!--  -->
                         <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
                     </a>
                     

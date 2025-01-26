@@ -1,7 +1,7 @@
 <?php
 session_start();
 error_reporting(0);
-include(__DIR__ . '/config/db.php');
+include('config/db.php');
 
 if (isset($_POST['login'])) {
     $email = $_POST['email'];
@@ -69,6 +69,14 @@ if (isset($_POST['login'])) {
                     <div class="col-md-4 p-0">
                         <div class="auth-form-light text-left p-5">
                             <div class="brand-logo" align="center">
+                         
+        <div class="text-center navbar-brand-wrapper d-flex flex-column align-items-center justify-content-center">
+            <!-- <a class="navbar-brand brand-logo" href="dashboard.php">
+                <img class="img-avatar" style="height: 60px; width: auto;" src="assets/images/logo.svg" alt="Ollyo">
+            </a> -->
+            <h4 class="text-center mt-2">Event Management System</h4>
+        </div>
+        <div class="brand-logo" align="center" style="margin-top: 60px;">
                                 <h3 class="text-muted mt-4">
                                     Login Here
                                 </h3>

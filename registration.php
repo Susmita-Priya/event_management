@@ -1,7 +1,7 @@
 <?php
 session_start();
 error_reporting(0);
-include(__DIR__ . '/config/db.php');
+include('config/db.php');
 
 if (isset($_POST['register'])) {
     $first_name = $_POST['firstName'];
@@ -26,7 +26,7 @@ if (isset($_POST['register'])) {
 
         if ($query) {
             echo "<script>alert('Registration successful');</script>";
-             // Redirect to the dashboard
+            // Redirect to the dashboard
             echo "<script type='text/javascript'> document.location ='login.php'; </script>";
         } else {
             // Registration failed
@@ -41,15 +41,16 @@ if (isset($_POST['register'])) {
 
 <!DOCTYPE html>
 <html lang="en">
-<?php @include("includes/head.php");?>
+<?php @include("includes/head.php"); ?>
+
 <body>
     <div class="container-scroller">
         <div class="container-fluid page-body-wrapper full-page-wrapper">
             <div class="content-wrapper d-flex align-items-center auth p-0">
                 <div class="row flex-grow">
-                   
+
                     <div class="col-md-8 p-0">
-                        
+
                         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 
                             <div class="carousel-inner">
@@ -72,7 +73,13 @@ if (isset($_POST['register'])) {
                     </div>
                     <div class="col-md-4 p-0">
                         <div class="auth-form-light text-left p-5">
-                            <div class="brand-logo" align="center">
+                            <div class="text-center navbar-brand-wrapper d-flex flex-column align-items-center justify-content-center">
+                                <a class="navbar-brand brand-logo" href="dashboard.php">
+                                    <img class="img-avatar" style="height: 60px; width: auto;" src="assets/images/logo.svg" alt="Ollyo">
+                                </a>
+                                <h4 class="text-center mt-2">Event Management System</h4>
+                            </div>
+                            <div class="brand-logo" align="center" style="margin-top: 60px;">
                                 <h3 class="text-muted mt-4">
                                     Registration Form
                                 </h3>
@@ -102,7 +109,7 @@ if (isset($_POST['register'])) {
                                 <div class="text-muted text-center mt-4 font-weight-light">
                                     Already have an account?
                                     <a href="login.php" class="text-secondary">
-                                         <strong style="color: blue;">Sign In</strong>
+                                        <strong style="color: blue;">Sign In</strong>
                                     </a>
                                 </div>
                             </form>
@@ -124,7 +131,7 @@ if (isset($_POST['register'])) {
             </div>
         </div>
     </div>
-    <?php @include("includes/foot.php");?>
+    <?php @include("includes/foot.php"); ?>
 </body>
 
 </html>

@@ -1,7 +1,4 @@
-
-
- 
- <script src="assets/vendor/js/vendor.bundle.base.js"></script>
+<script src="assets/vendor/js/vendor.bundle.base.js"></script>
  
  
  <script src="assets/vendor/chart.js/Chart.min.js"></script>
@@ -19,22 +16,12 @@
  <script src="assets/js/todolist.js"></script>
  <script src="assets/js/file-upload.js"></script>
  
-
-
- 
-
-
-
  <script src="assets/vendor/datatables/jquery.dataTables.min.js"></script>
  <script src="assets/vendor/datatables/dataTables.bootstrap.js"></script>
  <script src="assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
 
- <!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-<!-- DataTables JS -->
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
 
 
