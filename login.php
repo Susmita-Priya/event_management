@@ -7,30 +7,25 @@ if (isset($_POST['login'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Query to check if the email exists
     $sql = "SELECT * FROM user WHERE email = :email";
     $query = $pdo->prepare($sql);
     $query->bindParam(':email', $email, PDO::PARAM_STR);
     $query->execute();
     // Check if a user with the provided email exists
     if ($query->rowCount() > 0) {
-        $result = $query->fetch(PDO::FETCH_OBJ); // Fetch the user record
-
+        $result = $query->fetch(PDO::FETCH_OBJ); 
+        
         // Verify the entered password with the hashed password
         if (password_verify($password, $result->password)) {
             // Set session variables
             $_SESSION['id'] = $result->id;          
-            $_SESSION['login'] = $result->email;  
+            $_SESSION['email'] = $result->email;  
 
-            // echo "<script>alert('Login successful');</script>";
-            // Redirect to the dashboard
             echo "<script type='text/javascript'> document.location ='dashboard.php'; </script>";
         } else {
-            // If the password doesn't match
             echo "<script>alert('Invalid password. Please try again.');</script>";
         }
     } else {
-        // If the email doesn't exist in the database
         echo "<script>alert('Invalid email. Please try again.');</script>";
     }
 }

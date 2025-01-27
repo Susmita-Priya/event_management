@@ -21,6 +21,7 @@ if (isset($_POST['update'])) {
   $venue = $_POST['venue'];
   $pincode = $_POST['pincode'];
   $capacity = $_POST['capacity'];
+  $availability = $_POST['availability'];
   $payment = $_POST['payment'];
   $start_date = $_POST['start_date'];
   $start_time = $_POST['start_time'];
@@ -29,13 +30,14 @@ if (isset($_POST['update'])) {
   $description = $_POST['description'];
   $status = $_POST['status'];
 
-  $sql = "UPDATE event SET event_name=:event_name, category_name=:category_name, venue=:venue, pincode=:pincode, capacity=:capacity, payment=:payment, start_date=:start_date, start_time=:start_time, end_date=:end_date, end_time=:end_time, description=:description, status=:status WHERE id=:id";
+  $sql = "UPDATE event SET event_name=:event_name, category_name=:category_name, venue=:venue, pincode=:pincode, capacity=:capacity, availability=:availability, payment=:payment, start_date=:start_date, start_time=:start_time, end_date=:end_date, end_time=:end_time, description=:description, status=:status WHERE id=:id";
   $query = $pdo->prepare($sql);
   $query->bindParam(':event_name', $event_name, PDO::PARAM_STR);
   $query->bindParam(':category_name', $category_name, PDO::PARAM_STR);
   $query->bindParam(':venue', $venue, PDO::PARAM_STR);
   $query->bindParam(':pincode', $pincode, PDO::PARAM_STR);
   $query->bindParam(':capacity', $capacity, PDO::PARAM_STR);
+  $query->bindParam(':availability', $availability, PDO::PARAM_STR);
   $query->bindParam(':payment', $payment, PDO::PARAM_STR);
   $query->bindParam(':start_date', $start_date, PDO::PARAM_STR);
   $query->bindParam(':start_time', $start_time, PDO::PARAM_STR);
@@ -104,6 +106,7 @@ if (isset($_POST['update'])) {
                         <th>Event Name</th>
                         <th>Venue</th>
                         <th>Capacity</th>
+                        <th>Availability</th>
                         <th>Start Date & Time</th>
                         <th>End Date & Time</th>
                         <th>Status</th>
@@ -124,6 +127,7 @@ if (isset($_POST['update'])) {
                             <td><?php echo htmlentities($event->event_name); ?></td>
                             <td><?php echo htmlentities($event->venue); ?></td>
                             <td><?php echo htmlentities($event->capacity); ?></td>
+                            <td><?php echo htmlentities($event->availability); ?></td>
                             <td><?php echo htmlentities($event->start_date); ?>, <?php echo htmlentities($event->start_time); ?></td>
                             <td><?php echo htmlentities($event->end_date); ?>, <?php echo htmlentities($event->end_time); ?></td>
                             <td>
@@ -147,9 +151,13 @@ if (isset($_POST['update'])) {
                                       <p><strong>Event Name:</strong> <?php echo htmlentities($event->event_name); ?></p>
                                       <p><strong>Category:</strong> <?php echo htmlentities($event->category_name); ?></p>
                                       <p><strong>Venue:</strong> <?php echo htmlentities($event->venue); ?></p>
+                                      <p><strong>Pincode:</strong> <?php echo htmlentities($event->pincode); ?></p>
                                       <p><strong>Capacity:</strong> <?php echo htmlentities($event->capacity); ?></p>
+                                      <p><strong>Availability:</strong> <?php echo htmlentities($event->availability); ?></p>
+                                      <p><strong>Payment:</strong> <?php echo htmlentities($event->payment); ?> TK</p>
                                       <p><strong>Start Date & Time:</strong> <?php echo htmlentities($event->start_date); ?>, <?php echo htmlentities($event->start_time); ?></p>
                                       <p><strong>End Date & Time:</strong> <?php echo htmlentities($event->end_date); ?>, <?php echo htmlentities($event->end_time); ?></p>
+                                      <p><strong>Description:</strong> <?php echo htmlentities($event->description ?? 'N/A'); ?></p>
                                       <p><strong>Status:</strong> <?php echo ($event->status == 'Active') ? 'Active' : 'Inactive'; ?></p>
                                     </div>
                                     <div class="modal-footer">
@@ -210,6 +218,12 @@ if (isset($_POST['update'])) {
                                             </div>
                                           </div>
                                           <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label for="availability">Availability</label>
+                                              <input type="number" name="availability" class="form-control" id="availability" value="<?php echo htmlentities($event->availability); ?>" required>
+                                            </div>
+                                          </div>
+                                          <div class="col-md-12">
                                             <div class="form-group">
                                               <label for="payment">Payment</label>
                                               <input type="number" name="payment" class="form-control" id="payment" value="<?php echo htmlentities($event->payment); ?>" required>

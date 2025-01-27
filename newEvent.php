@@ -9,6 +9,7 @@ if (isset($_POST['submit'])) {
     $venue = $_POST['venue'];
     $pincode = $_POST['pincode'];
     $capacity = $_POST['capacity'];
+    $availability = $_POST['capacity'];
     $payment = $_POST['payment'];
     $start_date = $_POST['start_date'];
     $start_time = $_POST['start_time'];
@@ -18,8 +19,8 @@ if (isset($_POST['submit'])) {
     $status = 'Active';
 
     // Prepare the SQL query
-    $sql = "INSERT INTO event (event_name, category_name, venue, pincode, capacity, payment, start_date, start_time, end_date, end_time, description, status) 
-        VALUES (:event_name, :category_name, :venue, :pincode, :capacity, :payment, :start_date, :start_time, :end_date, :end_time, :description, :status)";
+    $sql = "INSERT INTO event (event_name, category_name, venue, pincode, capacity, availability, payment, start_date, start_time, end_date, end_time, description, status) 
+        VALUES (:event_name, :category_name, :venue, :pincode, :capacity, :availability, :payment, :start_date, :start_time, :end_date, :end_time, :description, :status)";
 
     // Prepare the statement
     $query = $pdo->prepare($sql);
@@ -30,6 +31,7 @@ if (isset($_POST['submit'])) {
     $query->bindParam(':venue', $venue, PDO::PARAM_STR);
     $query->bindParam(':pincode', $pincode, PDO::PARAM_STR);
     $query->bindParam(':capacity', $capacity, PDO::PARAM_STR);
+    $query->bindParam(':availability', $availability, PDO::PARAM_STR);
     $query->bindParam(':payment', $payment, PDO::PARAM_STR);
     $query->bindParam(':start_date', $start_date, PDO::PARAM_STR);
     $query->bindParam(':start_time', $start_time, PDO::PARAM_STR);

@@ -8,28 +8,31 @@ if (isset($_POST['submit'])) {
   $name = $_POST['name'];
   $phone = $_POST['phone'];
   $email = $_POST['email'];
+  $gender = $_POST['gender'];
   $eventId = $_POST['eventId'];
   $guestNo = $_POST['guestNo'];
   $payment = $_POST['payment'];
   $info = $_POST['info'];
   $status = 'Active';
 
-  // Check if guestNo exceeds event capacity
-  $sql = "SELECT capacity FROM event WHERE id = :eventId";
+  // Check if guestNo exceeds event availability
+  $sql = "SELECT availability FROM event WHERE id = :eventId";
   $query = $pdo->prepare($sql);
   $query->bindParam(':eventId', $eventId, PDO::PARAM_INT);
   $query->execute();
   $event = $query->fetch(PDO::FETCH_OBJ);
 
-  if ($guestNo > $event->capacity) {
+  if ($guestNo > $event->availability) {
     echo '<script>alert("Number of guests exceeds event capacity. Please reduce the number of guests.")</script>';
   } else {
-    $sql = "INSERT INTO booking(bookingId, name, phone, email, eventId, guestNo, payment, info, status) VALUES(:bookingId, :name, :phone, :email, :eventId, :guestNo, :payment, :info, :status)";
+    $sql = "INSERT INTO booking (bookingId, name, phone, email, gender, eventId, guestNo, payment, info, status) 
+        VALUES (:bookingId, :name, :phone, :email, :gender, :eventId, :guestNo, :payment, :info, :status)";
     $query = $pdo->prepare($sql);
     $query->bindParam(':bookingId', $bookingId, PDO::PARAM_STR);
     $query->bindParam(':name', $name, PDO::PARAM_STR);
     $query->bindParam(':phone', $phone, PDO::PARAM_STR);
     $query->bindParam(':email', $email, PDO::PARAM_STR);
+    $query->bindParam(':gender', $gender, PDO::PARAM_STR);
     $query->bindParam(':eventId', $eventId, PDO::PARAM_INT);
     $query->bindParam(':guestNo', $guestNo, PDO::PARAM_INT);
     $query->bindParam(':payment', $payment, PDO::PARAM_STR);
@@ -39,6 +42,14 @@ if (isset($_POST['submit'])) {
     $query->execute();
     $LastInsertId = $pdo->lastInsertId();
     if ($LastInsertId > 0) {
+      // Update the event availability
+      $newCapacity = $event->availability - $guestNo;
+      $sql = "UPDATE event SET availability = :newCapacity WHERE id = :eventId";
+      $query = $pdo->prepare($sql);
+      $query->bindParam(':newCapacity', $newCapacity, PDO::PARAM_INT);
+      $query->bindParam(':eventId', $eventId, PDO::PARAM_INT);
+      $query->execute();
+
       echo '<script>alert("Attendee Registration Successful.")</script>';
       echo "<script>window.location.href ='attendeeReg.php'</script>";
     } else {
@@ -46,7 +57,6 @@ if (isset($_POST['submit'])) {
     }
   }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -66,7 +76,7 @@ if (isset($_POST['submit'])) {
             <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-header">
-                  <h5 class="card-title">New Registration</h5>
+                  <h4 class="card-title">New Registration</h4>
                 </div>
                 <div class="card-body">
                   <form method="POST" id="contactForm" name="contactForm" class="contactForm">
@@ -91,32 +101,69 @@ if (isset($_POST['submit'])) {
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
+                          <label class="label" for="gender">Gender</label>
+                          <select class="form-control" name="gender" required="true">
+                            <option value="">Choose Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="col-md-12">
+                        <div class="form-group">
                           <label class="label" for="eventId">Event</label>
-                          <select class="form-control" name="eventId" required="true">
-                            <option value="">Choose Event</option>
-                            <?php
-                            $sql2 = "SELECT * from event";
-                            $query2 = $pdo->prepare($sql2);
-                            $query2->execute();
-                            $events = $query2->fetchAll(PDO::FETCH_OBJ);
-                            foreach ($events as $event) { ?>
-                              <option value="<?php echo htmlentities($event->id); ?>"><?php echo htmlentities($event->event_name . ' ' . '(' . $event->start_date . ')'); ?></option>
-                            <?php } ?>
+                          <select class="form-control" name="eventId" id="eventId" required="true" onchange="setEventDetails()">
+                          <option value="">Choose Event</option>
+                          <?php
+                          $sql2 = "SELECT * from event";
+                          $query2 = $pdo->prepare($sql2);
+                          $query2->execute();
+                          $events = $query2->fetchAll(PDO::FETCH_OBJ);
+                          foreach ($events as $event) { ?>
+                            <option value="<?php echo htmlentities($event->id); ?>" data-availability="<?php echo htmlentities($event->availability); ?>" data-payment="<?php echo htmlentities($event->payment); ?>"><?php echo htmlentities($event->event_name . ' - '. $event->pincode.' ' . '(' . $event->start_date . ',' . $event->start_time. ')'); ?></option>
+                          <?php } ?>
                           </select>
                         </div>
                       </div>
                         <div class="col-md-6">
                           <div class="form-group">
                             <label class="label" for="guestNo">No of Guests</label>
-                            <input type="number" class="form-control" name="guestNo" id="guestNo" placeholder="No of Guests" min="1" max="<?php echo $event->capacity; ?>" required>
+                            <input type="number" class="form-control" name="guestNo" id="guestNo" placeholder="No of Guests" min="1" required oninput="calculatePayment()">
+                            <small id="capacityInfo" class="form-text text-muted"></small>
                           </div>
                         </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="label" for="payment">Payment</label>
-                          <input type="text" class="form-control" name="payment" id="payment" placeholder="Payment">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label class="label" for="payment">Payment</label>
+                            <input type="text" class="form-control" name="payment" id="payment" placeholder="Payment" readonly>
+                          </div>
                         </div>
-                      </div>
+
+                        <script>
+                        function setEventDetails() {
+                          var eventSelect = document.getElementById('eventId');
+                          var selectedEvent = eventSelect.options[eventSelect.selectedIndex];
+                          var availability = selectedEvent.getAttribute('data-availability');
+                          var payment = selectedEvent.getAttribute('data-payment');
+                          document.getElementById('guestNo').max = availability;
+                          document.getElementById('capacityInfo').innerText = "Maximum capacity: " + availability;
+                          calculatePayment();
+                        }
+
+                        function calculatePayment() {
+                          var guestNo = document.getElementById('guestNo').value;
+                          var eventSelect = document.getElementById('eventId');
+                          var selectedEvent = eventSelect.options[eventSelect.selectedIndex];
+                          var payment = selectedEvent.getAttribute('data-payment');
+                          if (guestNo && payment) {
+                            document.getElementById('payment').value = guestNo * payment;
+                          } else {
+                            document.getElementById('payment').value = '';
+                          }
+                        }
+                        </script>
                       <div class="col-md-12">
                         <div class="form-group">
                           <label class="label" for="info">Additional Information</label>
@@ -125,7 +172,7 @@ if (isset($_POST['submit'])) {
                       </div>
                       <div class="col-md-12">
                         <div class="form-group">
-                            <button type="submit" name="submit" class="btn btn-info">Register</button>
+                          <button type="submit" name="submit" class="btn btn-info">Register</button>
                         </div>
                       </div>
                     </div>
@@ -133,10 +180,8 @@ if (isset($_POST['submit'])) {
                 </div>
               </div>
             </div>
+
           </div>
-
-
-
         </div>
       </div>
     </div>

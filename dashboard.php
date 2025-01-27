@@ -13,7 +13,6 @@ check_login();
     
 <?php @include("includes/header.php"); ?>
     
-
     <div class="container-fluid page-body-wrapper">
       <div class="main-panel"><br>
         <div class="content-wrapper">

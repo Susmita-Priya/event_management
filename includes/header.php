@@ -43,7 +43,7 @@
           <a class="dropdown-item" href="profile.php">
             <i class="mdi mdi-account mr-2 text-success"></i> Profile </a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="change_password.php"><i class="mdi mdi-key mr-2 text-success"></i> Change Password </a>
+            <a class="dropdown-item" href="changePassword.php"><i class="mdi mdi-key mr-2 text-success"></i> Change Password </a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="logout.php">
               <i class="mdi mdi-logout mr-2 text-danger"></i> Signout </a>
@@ -72,15 +72,8 @@
             <a class="nav-link" href="attendeeReg.php">Attendee Registration</a>
           </li>
 
-         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reports</a>
-            <div class="dropdown-menu  navbar-dropdown" aria-labelledby="dropdown05">
-              <a class="dropdown-item" href="event_report.php">Events List Reports</a>
-              <!-- <a class="dropdown-item" href="services_report.php">Services List Reports</a> -->
-              <a class="dropdown-item" href="booking_report.php">Booking Reports</a>
-              <a class="dropdown-item" href="btndates_report.php">Btndates Reports</a>
-
-            </div>
+          <li class="nav-item dropdown">
+            <a class="nav-link" href="report.php">Reports</a>
           </li>
         </ul>
 
