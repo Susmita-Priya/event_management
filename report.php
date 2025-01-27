@@ -32,7 +32,7 @@ check_login();
                             $events = $query2->fetchAll(PDO::FETCH_OBJ);
                             foreach ($events as $event) { ?>
                                 <option value="<?php echo htmlentities($event->id); ?>" <?php if(isset($_POST['eventId']) && $_POST['eventId'] == $event->id) echo 'selected'; ?>>
-                                <?php echo htmlentities($event->event_name . ' (' . $event->start_date . ', ' . $event->start_time . ')'); ?>
+                                <?php echo htmlentities($event->event_name .' - '. $event->pincode. ' (' . $event->start_date . ', ' . $event->start_time . ')'); ?>
                                 </option>
                             <?php } ?>
                           </select>
@@ -119,7 +119,8 @@ check_login();
           ?>
         </div>
       </div>
-    </div>
+     
+    </div> <?php @include("includes/footer.php"); ?>
   </div>
   <?php @include("includes/foot.php"); ?>
 </body>

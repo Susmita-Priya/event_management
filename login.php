@@ -14,7 +14,7 @@ if (isset($_POST['login'])) {
     // Check if a user with the provided email exists
     if ($query->rowCount() > 0) {
         $result = $query->fetch(PDO::FETCH_OBJ); 
-        
+
         // Verify the entered password with the hashed password
         if (password_verify($password, $result->password)) {
             // Set session variables
@@ -66,9 +66,9 @@ if (isset($_POST['login'])) {
                             <div class="brand-logo" align="center">
                          
         <div class="text-center navbar-brand-wrapper d-flex flex-column align-items-center justify-content-center">
-            <!-- <a class="navbar-brand brand-logo" href="dashboard.php">
+            <a class="navbar-brand brand-logo" href="dashboard.php">
                 <img class="img-avatar" style="height: 60px; width: auto;" src="assets/images/logo.svg" alt="Ollyo">
-            </a> -->
+            </a>
             <h4 class="text-center mt-2">Event Management System</h4>
         </div>
         <div class="brand-logo" align="center" style="margin-top: 60px;">
@@ -102,7 +102,8 @@ if (isset($_POST['login'])) {
                     </div>
                 </div>
             </div>
-        </div>
+            </div>
+        </div> <?php @include("includes/footer.php"); ?>
     </div>
     <?php @include("includes/foot.php");?>
 </body>

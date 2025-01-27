@@ -130,6 +130,7 @@ if (isset($_POST['register'])) {
                 </div>
             </div>
         </div>
+        <?php @include("includes/footer.php"); ?>
     </div>
     <?php @include("includes/foot.php"); ?>
 </body>

@@ -55,6 +55,7 @@ function checkpass() {
 
 <body>
   <div class="container-scroller">
+    <?php @include("includes/header.php"); ?>
     <div class="container-fluid page-body-wrapper">
       <div class="main-panel">
         <div class="content-wrapper">
@@ -95,7 +96,9 @@ function checkpass() {
           </div>
         </div>
       </div>
-    </div>
+     
+    </div> 
+    <?php @include("includes/footer.php"); ?>
   </div>
 
   <?php @include("includes/foot.php"); ?>
