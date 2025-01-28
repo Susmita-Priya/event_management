@@ -60,7 +60,6 @@ The **Ollyo Event Management System** is built to cater to the needs of event or
 - **Frontend**: HTML, CSS, JavaScript, Ajax
 - **Backend**: PHP
 - **Database**:  MySQL
-- **File Handling**: CSV file generation for attendee lists
 
 ---
 
@@ -73,7 +72,7 @@ The **Ollyo Event Management System** is built to cater to the needs of event or
 3. Set up the database, 
    database folder > ollyo_event_management.sql
 
-5. Run the application:
+5. Run the application: 
   http://localhost:3000/login.php
   
 
