@@ -68,7 +68,7 @@ The **Ollyo Event Management System** is built to cater to the needs of event or
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/ollyo-event-management-system.git
+   git clone https://github.com/Susmita-Priya/event_management.git
    ```
 3. Set up the database.
    
