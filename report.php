@@ -15,14 +15,14 @@ check_login();
             <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="modal-header">
-                  <h5 class="modal-title float-left">Event Attendees Report</h5>
+                  <h5 class="modal-title float-left">Event</h5>
                 </div>
                 <div class="col-md-12">
                   <form class="forms-sample" method="post" enctype="multipart/form-data" class="form-horizontal">
                     <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
-                          <label class="label" for="eventId">Event</label>
+                          
                           <select class="form-control" name="eventId" id="eventId" required>
                             <option value="">Choose Event</option>
                             <?php
