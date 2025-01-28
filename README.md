@@ -57,7 +57,7 @@ The **Ollyo Event Management System** is built to cater to the needs of event or
 ---
 
 ## Technologies Used
-- **Frontend**: HTML, CSS, JavaScript, Ajax
+- **Frontend**: HTML, CSS, Bootstrap, JavaScript, Ajax
 - **Backend**: PHP
 - **Database**:  MySQL
 
