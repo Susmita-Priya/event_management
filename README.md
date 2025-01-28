@@ -70,7 +70,7 @@ The **Ollyo Event Management System** is built to cater to the needs of event or
    ```bash
    git clone https://github.com/Susmita-Priya/event_management.git
    ```
-3. Set up the database
+3. Set up the database, 
    database folder > ollyo_event_management.sql
 
 5. Run the application:
