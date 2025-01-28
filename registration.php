@@ -79,7 +79,7 @@ if (isset($_POST['register'])) {
                                 </a>
                                 <h4 class="text-center mt-2">Event Management System</h4>
                             </div>
-                            <div class="brand-logo" align="center" style="margin-top: 60px;">
+                            <div class="brand-logo" align="center" style="margin-top: 20px;">
                                 <h3 class="text-muted mt-4">
                                     Registration Form
                                 </h3>
@@ -95,7 +95,7 @@ if (isset($_POST['register'])) {
                                     <input type="email" class="form-control form-control-lg" name="email" placeholder="Email" required>
                                 </div>
                                 <div class="form-group last">
-                                    <input type="text" class="form-control form-control-lg" name="phone" placeholder="Phone" maxlength="15" required>
+                                    <input type="text" class="form-control form-control-lg" name="phone" placeholder="Phone" maxlength="13" required>
                                 </div>
                                 <div class="form-group last">
                                     <input type="password" name="password" class="form-control form-control-lg" placeholder="Password" minlength="4" required>
@@ -130,7 +130,7 @@ if (isset($_POST['register'])) {
                 </div>
             </div>
         </div>
-        <?php @include("includes/footer.php"); ?>
+
     </div>
     <?php @include("includes/foot.php"); ?>
 </body>

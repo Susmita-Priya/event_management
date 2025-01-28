@@ -1,5 +1,5 @@
 <?php
-include('includes/checklogin.php');
+include('includes/auth.php');
 check_login();
 ?>
 <!DOCTYPE html>

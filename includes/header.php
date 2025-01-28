@@ -1,18 +1,13 @@
-
 <div id="page">
 </div>
 <div class="bg-white topbar">
   <div class="row">
     <div class="col-md-12 ">
-           <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-            <a class="navbar-brand brand-logo " href="dashboard.php"><img class="img-avatar" style="height: 60px; width: auto;" src="assets/images/logo.svg" alt=""></a>
-
-          </div>          
-          <h5 class="text-center">Event Management System</h5>
-        </div>
-    
-
-
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+        <a class="navbar-brand brand-logo " href="dashboard.php"><img class="img-avatar" style="height: 60px; width: auto;" src="assets/images/logo.svg" alt=""></a>
+      </div>
+      <h5 class="text-center">Event Management System</h5>
+    </div>
   </div>
   <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 d-flex flex-row">
     <div class="navbar-menu-wrapper d-flex align-items-stretch w-100">
@@ -29,32 +24,32 @@
         <li class="nav-item dropdown">
           <a class="nav-link" href="report.php">Reports</a>
         </li>
-</ul>
-          <ul class="navbar-nav navbar-nav-right">
-          <li class="nav-item nav-profile dropdown">
-            <?php
-            $id = $_SESSION['id'];
-            $sql = "SELECT * from user where id=:id";
-            $query = $pdo->prepare($sql);
-            $query->bindParam(':id', $id, PDO::PARAM_STR);
-            $query->execute();
-            if ($query->rowCount() > 0) {
+      </ul>
+      <ul class="navbar-nav navbar-nav-right">
+        <li class="nav-item nav-profile dropdown">
+          <?php
+          $id = $_SESSION['id'];
+          $sql = "SELECT * from user where id=:id";
+          $query = $pdo->prepare($sql);
+          $query->bindParam(':id', $id, PDO::PARAM_STR);
+          $query->execute();
+          if ($query->rowCount() > 0) {
             $results = $query->fetchAll(PDO::FETCH_OBJ);
 
             foreach ($results as $row) {
-            ?>
+          ?>
               <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-            <div class="nav-profile-img">
-            </div>
-            <div class="nav-profile-text ">
-            <p class="mb-1 text-light"><?php echo $row->firstName; ?> <?php echo $row->lastName; ?></p>
-            </div>
+                <div class="nav-profile-img">
+                </div>
+                <div class="nav-profile-text ">
+                  <p class="mb-1 text-light"><?php echo $row->firstName; ?> <?php echo $row->lastName; ?></p>
+                </div>
               </a>
-            <?php
+          <?php
             }
-            } ?>
+          } ?>
 
-            <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+          <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
             <a class="dropdown-item" href="profile.php">
               <i class="mdi mdi-account mr-2 text-success"></i> Profile </a>
             <div class="dropdown-divider"></div>
@@ -62,9 +57,9 @@
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="logout.php">
               <i class="mdi mdi-logout mr-2 text-danger"></i> Signout </a>
-            </div>
-          </li>
-          </ul>
+          </div>
+        </li>
+      </ul>
 
     </div>
   </nav>

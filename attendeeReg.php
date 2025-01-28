@@ -1,5 +1,5 @@
 <?php
-include('includes/checklogin.php');
+include('includes/auth.php');
 check_login();
 
 if (isset($_POST['submit'])) {
@@ -96,7 +96,7 @@ if (isset($_POST['submit'])) {
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="label" for="phone">Contact No</label>
-                          <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone No">
+                          <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone No" maxlength="13">
                         </div>
                       </div>
                       <div class="col-md-6">
@@ -115,55 +115,90 @@ if (isset($_POST['submit'])) {
                         <div class="form-group">
                           <label class="label" for="eventId">Event</label>
                           <select class="form-control" name="eventId" id="eventId" required="true" onchange="setEventDetails()">
-                          <option value="">Choose Event</option>
-                          <?php
-                          $sql2 = "SELECT * from event";
-                          $query2 = $pdo->prepare($sql2);
-                          $query2->execute();
-                          $events = $query2->fetchAll(PDO::FETCH_OBJ);
-                          foreach ($events as $event) { ?>
-                            <option value="<?php echo htmlentities($event->id); ?>" data-availability="<?php echo htmlentities($event->availability); ?>" data-payment="<?php echo htmlentities($event->payment); ?>"><?php echo htmlentities($event->event_name . ' - '. $event->pincode.' ' . '(' . $event->start_date . ',' . $event->start_time. ')'); ?></option>
-                          <?php } ?>
+                            <option value="">Choose Event</option>
+                            <?php
+                            $sql2 = "SELECT * FROM event";
+                            $query2 = $pdo->prepare($sql2);
+                            $query2->execute();
+                            $events = $query2->fetchAll(PDO::FETCH_OBJ);
+                            foreach ($events as $event) { ?>
+                              <option value="<?php echo htmlentities($event->id); ?>">
+                                <?php echo htmlentities($event->event_name . ' - ' . $event->pincode . ' (' . $event->start_date . ', ' . $event->start_time . ')'); ?>
+                              </option>
+                            <?php } ?>
                           </select>
                         </div>
                       </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label class="label" for="guestNo">No of Guests</label>
-                            <input type="number" class="form-control" name="guestNo" id="guestNo" placeholder="No of Guests" min="1" required oninput="calculatePayment()">
-                            <small id="capacityInfo" class="form-text text-muted"></small>
-                          </div>
+
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="label" for="guestNo">No of Guests</label>
+                          <input type="number" class="form-control" name="guestNo" id="guestNo" placeholder="No of Guests" min="1" required oninput="calculatePayment()">
+                          <small id="capacityInfo" class="form-text text-muted"></small>
                         </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label class="label" for="payment">Payment</label>
-                            <input type="text" class="form-control" name="payment" id="payment" placeholder="Payment" readonly>
-                          </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="label" for="payment">Payment</label>
+                          <input type="text" class="form-control" name="payment" id="payment" placeholder="Payment" readonly>
                         </div>
+                      </div>
 
                         <script>
+                        let basePayment = 0;
+
                         function setEventDetails() {
-                          var eventSelect = document.getElementById('eventId');
-                          var selectedEvent = eventSelect.options[eventSelect.selectedIndex];
-                          var availability = selectedEvent.getAttribute('data-availability');
-                          var payment = selectedEvent.getAttribute('data-payment');
-                          document.getElementById('guestNo').max = availability;
-                          document.getElementById('capacityInfo').innerText = "Maximum capacity: " + availability;
-                          calculatePayment();
+                          const eventId = document.getElementById('eventId').value;
+
+                          if (eventId) {
+                          $.ajax({
+                            url: 'getEventDetails.php',
+                            type: 'POST',
+                            data: {
+                            eventId: eventId
+                            },
+                            success: function(response) {
+
+                            // Ensure response is an object, or parse if it's a string
+                            let eventDetails;
+                            try {
+                              eventDetails = typeof response === 'string' ? JSON.parse(response) : response;
+                            } catch (e) {
+                              console.error('JSON Parsing Error:', e);
+                              return;
+                            }
+
+                            if (eventDetails.error) {
+                              alert(eventDetails.error);
+                            } else {
+                              document.getElementById('guestNo').max = eventDetails.availability;
+                              document.getElementById('capacityInfo').innerText = "Maximum capacity: " + eventDetails.availability;
+                              basePayment = eventDetails.payment;
+                              document.getElementById('payment').value = basePayment;
+                            }
+                            },
+                          });
+                          } else {
+                          // Reset fields if no event is selected
+                          document.getElementById('guestNo').value = '';
+                          document.getElementById('guestNo').max = '';
+                          document.getElementById('capacityInfo').innerText = '';
+                          basePayment = 0;
+                          document.getElementById('payment').value = '';
+                          }
                         }
 
                         function calculatePayment() {
-                          var guestNo = document.getElementById('guestNo').value;
-                          var eventSelect = document.getElementById('eventId');
-                          var selectedEvent = eventSelect.options[eventSelect.selectedIndex];
-                          var payment = selectedEvent.getAttribute('data-payment');
-                          if (guestNo && payment) {
-                            document.getElementById('payment').value = guestNo * payment;
-                          } else {
-                            document.getElementById('payment').value = '';
+                          const guestNo = document.getElementById('guestNo').value;
+                          if (guestNo && basePayment) {
+                          document.getElementById('payment').value = guestNo * basePayment;
+                          } else if (guestNo === '') {
+                          document.getElementById('payment').value = basePayment;
                           }
                         }
                         </script>
+
                       <div class="col-md-12">
                         <div class="form-group">
                           <label class="label" for="info">Additional Information</label>

@@ -87,7 +87,7 @@ if (isset($_POST['login'])) {
                                     <button name="login" class="btn btn-block btn-info btn-lg font-weight-medium auth-form-btn">SIGN IN</button>
                                 </div>
                                 <div class="text-center mt-4 font-weight-light">
-                                    <a href="forgot_password.php" class="text-secondary">
+                                    <a href="forgotPassword.php" class="text-secondary">
                                         Forgot Password
                                     </a>
                                 </div>
@@ -103,7 +103,7 @@ if (isset($_POST['login'])) {
                 </div>
             </div>
             </div>
-        </div> <?php @include("includes/footer.php"); ?>
+        </div>
     </div>
     <?php @include("includes/foot.php");?>
 </body>

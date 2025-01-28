@@ -1,5 +1,5 @@
 <?php
-include('includes/checklogin.php');
+include('includes/auth.php');
 check_login();
 
 // Code for deleting product from cart
@@ -103,7 +103,7 @@ if (isset($_POST['update'])) {
                     <thead>
                       <tr>
                         <th class="text-center">No.</th>
-                        <th>Event Name</th>
+                        <th>Event</th>
                         <th>Venue</th>
                         <th>Capacity</th>
                         <th>Availability</th>
@@ -115,7 +115,7 @@ if (isset($_POST['update'])) {
                     </thead>
                     <tbody>
                       <?php
-                      $sql = "SELECT * FROM event";
+                      $sql = "SELECT * FROM event ORDER BY id DESC";
                       $query = $pdo->prepare($sql);
                       $query->execute();
                       $events = $query->fetchAll(PDO::FETCH_OBJ);
@@ -124,7 +124,7 @@ if (isset($_POST['update'])) {
                         foreach ($events as $event) { ?>
                           <tr>
                             <td class="text-center"><?php echo htmlentities($cnt); ?></td>
-                            <td><?php echo htmlentities($event->event_name); ?></td>
+                            <td><?php echo htmlentities($event->event_name); ?> - <?php echo htmlentities($event->pincode); ?></td>
                             <td><?php echo htmlentities($event->venue); ?></td>
                             <td><?php echo htmlentities($event->capacity); ?></td>
                             <td><?php echo htmlentities($event->availability); ?></td>

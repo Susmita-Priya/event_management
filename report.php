@@ -1,5 +1,5 @@
 <?php
-include('includes/checklogin.php');
+include('includes/auth.php');
 check_login();
 ?>
 <!DOCTYPE html>
@@ -17,7 +17,7 @@ check_login();
                 <div class="modal-header">
                   <h5 class="modal-title float-left">Event Attendees Report</h5>
                 </div>
-                <div class="col-md-12 mt-4">
+                <div class="col-md-12">
                   <form class="forms-sample" method="post" enctype="multipart/form-data" class="form-horizontal">
                     <div class="row">
                       <div class="col-md-12">

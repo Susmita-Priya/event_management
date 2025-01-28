@@ -1,6 +1,7 @@
 <?php
-include('includes/checklogin.php');
+include('includes/auth.php');
 check_login();
+
 if (isset($_POST['submit'])) {
     $id = $_SESSION['id'];
     $firstName = $_POST['firstName'];
