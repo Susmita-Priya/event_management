@@ -24,7 +24,14 @@
         <li class="nav-item dropdown">
           <a class="nav-link" href="report.php">Reports</a>
         </li>
-        
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">User management</a>
+            <div class="dropdown-menu  navbar-dropdown" aria-labelledby="dropdown05">
+              <a class="dropdown-item" href="user.php">Manage users</a>
+              <a class="dropdown-item" href="role.php">Roles </a>
+              <!-- <a class="dropdown-item" href="newpermission.php">Add Permission</a> -->
+            </div>
+        </li>
       </ul>
       <ul class="navbar-nav navbar-nav-right">
         <li class="nav-item nav-profile dropdown">

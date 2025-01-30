@@ -10,18 +10,20 @@ if (isset($_POST['register'])) {
     $phone = $_POST['phone'];
     $password = $_POST['password'];
     $confirm_password = $_POST['confirmPassword'];
+    $role_id = 2; // Default role is user
 
     // Check if the password and confirm password match
     if ($password == $confirm_password) {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         // Query to insert the user details into the database
-        $sql = "INSERT INTO user (firstName, lastName, email, phone, password) VALUES (:firstName, :lastName, :email, :phone, :password)";
+        $sql = "INSERT INTO user (firstName, lastName, email, phone, password, role_id) VALUES (:firstName, :lastName, :email, :phone, :password, :role_id)";
         $query = $pdo->prepare($sql);
         $query->bindParam(':firstName', $first_name, PDO::PARAM_STR);
         $query->bindParam(':lastName', $last_name, PDO::PARAM_STR);
         $query->bindParam(':email', $email, PDO::PARAM_STR);
         $query->bindParam(':phone', $phone, PDO::PARAM_STR);
         $query->bindParam(':password', $hashed_password, PDO::PARAM_STR);
+        $query->bindParam(':role_id', $role_id, PDO::PARAM_INT);
         $query->execute();
 
         if ($query) {
