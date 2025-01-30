@@ -34,7 +34,7 @@ check_login();
                       ?>
                       <table  border="1" class="table align-items-center table-bordered table-hover">
                         <tr>
-                          <th colspan="5" style="text-align: center;color: red;font-size: 20px">Booking Number: <?php  echo $row->BookingID;?></th>
+                          <th colspan="5" style="text-align: center;color: blue;font-size: 20px">Booking Number: <?php  echo $row->BookingID;?></th>
                         </tr>
                         <tr>
                           <th>Name of Client</th>
@@ -79,8 +79,7 @@ check_login();
                           <th>Event End Time</th>
                           <td><?php echo $row->end_time; ?></td>
                         </tr>
-                       
-
+                      
                       <?php } } ?>
 
                   </table> 

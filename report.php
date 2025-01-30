@@ -96,8 +96,45 @@ check_login();
                         <td>
                           <span class="badge badge-info"><?php echo htmlentities($row->status); ?></span>
                         </td>
-                        <td class="text-center">
-                          <a href="invoiceGenerating.php?id=<?php echo htmlentities($row->id); ?>"><i class="mdi mdi-printer" aria-hidden="true"></i></a>
+                        <td class="text-center" >
+                            <a href="#"  class="view_data btn btn-info rounded" id="<?php echo  ($row->id); ?>" title="View"><i class="mdi mdi-eye" aria-hidden="true"></i></a>
+                            <!-- View Modal -->
+                            <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+                              <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="viewModalLabel">Booking Details</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body" id="bookingDetails">
+                                    <!-- Booking details will be loaded here-->
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <script>
+                            $(document).ready(function() {
+                              $('.view_data').click(function() {
+                                var bookingId = $(this).attr("id");
+                                $.ajax({
+                                  url: "fetchBookingDetails.php",
+                                  method: "post",
+                                  data: {bookingId: bookingId},
+                                  success: function(data) {
+                                    $('#bookingDetails').html(data);
+                                    $('#viewModal').modal("show");
+                                  }
+                                });
+                              });
+                            });
+                            </script>
+                            <a href="invoiceGenerating.php?id=<?php echo htmlentities($row->id); ?>" class="btn btn-primary rounded" title="print"><i class="mdi mdi-printer" aria-hidden="true"></i></a>
                         </td>
                       </tr>
                       <?php $cnt++; 

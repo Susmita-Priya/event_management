@@ -13,13 +13,13 @@ if (isset($_POST['login'])) {
     $query->execute();
     // Check if a user with the provided email exists
     if ($query->rowCount() > 0) {
-        $result = $query->fetch(PDO::FETCH_OBJ); 
+        $result = $query->fetch(PDO::FETCH_OBJ);
 
         // Verify the entered password with the hashed password
         if (password_verify($password, $result->password)) {
             // Set session variables
-            $_SESSION['id'] = $result->id;          
-            $_SESSION['email'] = $result->email;  
+            $_SESSION['id'] = $result->id;
+            $_SESSION['email'] = $result->email;
 
             echo "<script type='text/javascript'> document.location ='dashboard.php'; </script>";
         } else {
@@ -34,21 +34,22 @@ if (isset($_POST['login'])) {
 
 <!DOCTYPE html>
 <html lang="en">
-<?php @include("includes/head.php");?>
+<?php @include("includes/head.php"); ?>
+
 <body>
     <div class="container-scroller">
         <div class="container-fluid page-body-wrapper full-page-wrapper">
             <div class="content-wrapper d-flex align-items-center auth p-0">
                 <div class="row flex-grow">
-                   
+
                     <div class="col-md-8 p-0">
                         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img class="d-block w-100" src="assets/images/slider2.jpg" alt="First slide">
+                                    <img class="d-block w-100" src="assets/images/slider2.jpg" alt="First slide" style="height: 100vh; object-fit: cover;">
                                 </div>
                                 <div class="carousel-item">
-                                    <img class="d-block w-100" src="assets/images/slider1.jpeg" alt="Second slide">
+                                    <img class="d-block w-100" src="assets/images/slider1.jpeg" alt="Second slide" style="height: 100vh; object-fit: cover;">
                                 </div>
                             </div>
                             <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -64,47 +65,48 @@ if (isset($_POST['login'])) {
                     <div class="col-md-4 p-0">
                         <div class="auth-form-light text-left p-5">
                             <div class="brand-logo" align="center">
-                         
-        <div class="text-center navbar-brand-wrapper d-flex flex-column align-items-center justify-content-center">
-            <a class="navbar-brand brand-logo" href="dashboard.php">
-                <img class="img-avatar" style="height: 60px; width: auto;" src="assets/images/logo.svg" alt="Ollyo">
-            </a>
-            <h4 class="text-center mt-2">Event Management System</h4>
-        </div>
-        <div class="brand-logo" align="center" style="margin-top: 60px;">
-                                <h3 class="text-muted mt-4">
-                                    Login Here
-                                </h3>
+
+                                <div class="text-center navbar-brand-wrapper d-flex flex-column align-items-center justify-content-center">
+                                    <a class="navbar-brand brand-logo" href="dashboard.php">
+                                        <img class="img-avatar" style="height: 60px; width: auto;" src="assets/images/logo.svg" alt="Ollyo">
+                                    </a>
+                                    <h4 class="text-center mt-2">Event Management System</h4>
+                                </div>
+                                <div class="brand-logo" align="center" style="margin-top: 60px;">
+                                    <h3 class="text-muted mt-4">
+                                        Login Here
+                                    </h3>
+                                </div>
+                                <form role="form" id="" method="post" enctype="multipart/form-data" class="">
+                                    <div class="form-group first">
+                                        <input type="email" class="form-control form-control-lg" name="email" placeholder="Email" required>
+                                    </div>
+                                    <div class="form-group last">
+                                        <input type="password" name="password" class="form-control form-control-lg" minlength="4" placeholder="Password" required>
+                                    </div>
+                                    <div class="mt-3">
+                                        <button name="login" class="btn btn-block btn-info btn-lg font-weight-medium auth-form-btn">SIGN IN</button>
+                                    </div>
+                                    <div class="text-center mt-4 font-weight-light">
+                                        <a href="forgotPassword.php" class="text-secondary">
+                                            Forgot Password
+                                        </a>
+                                    </div>
+                                    <div class="text-center text-muted mt-4 font-weight-light">
+                                        Haven't an account?&nbsp;&nbsp;
+                                        <a href="registration.php" class="text-secondary">
+                                            <strong style="color: blue;">Registration</strong>
+                                        </a>
+                                    </div>
+                                </form>
                             </div>
-                            <form role="form" id="" method="post" enctype="multipart/form-data" class="">
-                                <div class="form-group first">
-                                    <input type="email" class="form-control form-control-lg" name="email" placeholder="Email" required>
-                                </div>
-                                <div class="form-group last">
-                                    <input type="password" name="password" class="form-control form-control-lg" minlength="4" placeholder="Password" required>
-                                </div>
-                                <div class="mt-3">
-                                    <button name="login" class="btn btn-block btn-info btn-lg font-weight-medium auth-form-btn">SIGN IN</button>
-                                </div>
-                                <div class="text-center mt-4 font-weight-light">
-                                    <a href="forgotPassword.php" class="text-secondary">
-                                        Forgot Password
-                                    </a>
-                                </div>
-                                <div class="text-center text-muted mt-4 font-weight-light">
-                                    Haven't an account?&nbsp;&nbsp;
-                                    <a href="registration.php" class="text-secondary">
-                                    <strong style="color: blue;">Registration</strong>
-                                    </a>
-                                </div>
-                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-            </div>
         </div>
     </div>
-    <?php @include("includes/foot.php");?>
+    <?php @include("includes/foot.php"); ?>
 </body>
+
 </html>

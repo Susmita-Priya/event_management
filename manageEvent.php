@@ -128,8 +128,8 @@ if (isset($_POST['update'])) {
                             <td><?php echo htmlentities($event->venue); ?></td>
                             <td><?php echo htmlentities($event->capacity); ?></td>
                             <td><?php echo htmlentities($event->availability); ?></td>
-                            <td><?php echo htmlentities($event->start_date); ?>, <?php echo htmlentities($event->start_time); ?></td>
-                            <td><?php echo htmlentities($event->end_date); ?>, <?php echo htmlentities($event->end_time); ?></td>
+                            <td><?php echo htmlentities($event->start_date); ?> <?php echo htmlentities($event->start_time); ?></td>
+                            <td><?php echo htmlentities($event->end_date); ?> <?php echo htmlentities($event->end_time); ?></td>
                             <td>
                               <label class="badge <?php echo ($event->status == 'Active') ? 'badge-success' : 'badge-danger'; ?>">
                                 <?php echo htmlentities($event->status); ?>
@@ -139,7 +139,7 @@ if (isset($_POST['update'])) {
                             <td class="text-center">
 
                               <!--  View Event -->
-                              <a href="#" class="rounded btn btn-info btn-sm" data-toggle="modal" data-target="#viewEvent<?php echo ($event->id); ?>"><i class="mdi mdi-eye"></i> View</a>
+                              <a href="#" class="rounded btn btn-info btn-sm" data-toggle="modal" data-target="#viewEvent<?php echo ($event->id); ?>" title="View"><i class="mdi mdi-eye"></i></a>
                               <div class="modal fade" id="viewEvent<?php echo ($event->id); ?>">
                                 <div class="modal-dialog modal-md"></div>
                                 <div class="modal-content">
@@ -168,7 +168,7 @@ if (isset($_POST['update'])) {
                 </div>
 
                 <!--  Update Event -->
-                <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#updateEvent<?php echo $event->id; ?>"><i class="mdi mdi-pencil"></i> Edit</button>
+                <button type="button" class="rounded btn btn-sm btn-success" data-toggle="modal" data-target="#updateEvent<?php echo $event->id; ?>" title="Edit"><i class="mdi mdi-pencil"></i></button>
                 <div class="modal fade" id="updateEvent<?php echo ($event->id); ?>">
                   <div class="modal-dialog modal-md">
                     <div class="modal-content">
@@ -287,7 +287,7 @@ if (isset($_POST['update'])) {
                     </div>
                   </div>
                 </div>
-                <a href="manageEvent.php?delId=<?php echo ($event->id); ?>" onclick="return confirm('Do you really want to Delete?');" class="rounded btn btn-danger btn-sm"><i class="mdi mdi-delete"></i> Delete</a>
+                <a href="manageEvent.php?delId=<?php echo ($event->id); ?>" onclick="return confirm('Do you really want to Delete?');" class="rounded btn btn-danger btn-sm" title="Delete"><i class="mdi mdi-delete"></i></a>
                 </td>
                 </tr>
             <?php $cnt++;

@@ -55,10 +55,10 @@ if (isset($_POST['register'])) {
 
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img class="d-block w-100" src="assets/images/slider1.jpeg" alt="First slide">
+                                    <img class="d-block w-100" src="assets/images/slider1.jpeg" alt="First slide" style="height: 100vh; object-fit: cover;">
                                 </div>
                                 <div class="carousel-item">
-                                    <img class="d-block w-100" src="assets/images/slider2.jpg" alt="Second slide">
+                                    <img class="d-block w-100" src="assets/images/slider2.jpg" alt="Second slide" style="height: 100vh; object-fit: cover;">
                                 </div>
                             </div>
                             <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">

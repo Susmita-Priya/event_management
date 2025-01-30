@@ -24,6 +24,7 @@
         <li class="nav-item dropdown">
           <a class="nav-link" href="report.php">Reports</a>
         </li>
+        
       </ul>
       <ul class="navbar-nav navbar-nav-right">
         <li class="nav-item nav-profile dropdown">

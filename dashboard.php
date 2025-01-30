@@ -113,8 +113,8 @@ check_login();
                             <td><?php echo htmlentities($event->capacity); ?></td>
                             <td><?php echo htmlentities($event->capacity - $event->availability); ?></td>
                             <td><?php echo htmlentities($event->availability); ?></td>
-                            <td><?php echo htmlentities($event->start_date); ?>, <?php echo htmlentities($event->start_time); ?></td>
-                            <td><?php echo htmlentities($event->end_date); ?>, <?php echo htmlentities($event->end_time); ?></td>
+                            <td><?php echo htmlentities($event->start_date); ?> <?php echo htmlentities($event->start_time); ?></td>
+                            <td><?php echo htmlentities($event->end_date); ?> <?php echo htmlentities($event->end_time); ?></td>
                       <td class="d-none d-sm-table-cell">
                         <span class="badge badge-info">Upcoming</span>
                       </td>
