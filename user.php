@@ -4,6 +4,10 @@ check_login();
 
 // Code for deleting user
 if (isset($_GET['delId'])) {
+    if (!check_permission('user_delete')) {
+        echo "<script>alert('You do not have permission to delete users');</script>";
+        exit();
+      }
     $id = intval($_GET['delId']);
     $sql = "delete from user where id =:id";
     $query = $pdo->prepare($sql);
@@ -15,6 +19,10 @@ if (isset($_GET['delId'])) {
 
 // Code for updating user
 if (isset($_POST['update'])) {
+    if (!check_permission('user_edit')) {
+        echo "<script>alert('You do not have permission to edit users');</script>";
+        exit();
+      }
   $id = intval($_GET['id']);
   $firstName = $_POST['firstName'];
   $lastName = $_POST['lastName'];
@@ -67,9 +75,13 @@ if (isset($_POST['update'])) {
                     <div class="modal-content">
                       <div class="modal-header">
                         <h4 class="modal-title">Add New User</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
+
+                        <?php if (check_permission('user_add')) { ?>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        <?php } ?>
+
                       </div>
                       <div class="modal-body">
                         <?php @include("newUser.php"); ?>
@@ -113,7 +125,9 @@ if (isset($_POST['update'])) {
                             <td class="text-center">
 
                               <!-- View User -->
+                              <?php if (check_permission('user_view')) { ?>
                               <a href="#" class="rounded btn btn-info btn-sm" data-toggle="modal" data-target="#viewUser<?php echo ($user->id); ?>" title="View"><i class="mdi mdi-eye"></i></a>
+                              <?php } ?>
                               <div class="modal fade" id="viewUser<?php echo ($user->id); ?>">
                                 <div class="modal-dialog modal-md">
                                   <div class="modal-content">
@@ -136,7 +150,9 @@ if (isset($_POST['update'])) {
                               </div>
 
                               <!-- Update User -->
+                              <?php if (check_permission('user_edit')) { ?>
                               <button type="button" class="rounded btn btn-sm btn-success" data-toggle="modal" data-target="#updateUser<?php echo $user->id; ?>" title="Edit"><i class="mdi mdi-pencil"></i></button>
+                              <?php } ?>
                               <div class="modal fade" id="updateUser<?php echo ($user->id); ?>">
                                 <div class="modal-dialog modal-md">
                                   <div class="modal-content">
@@ -204,7 +220,9 @@ if (isset($_POST['update'])) {
                               </div>
 
                               <!-- Delete User -->
+                              <?php if (check_permission('user_delete')) { ?>
                               <a href="user.php?delId=<?php echo ($user->id); ?>" onclick="return confirm('Do you really want to Delete?');" class="rounded btn btn-danger btn-sm" title="Delete"><i class="mdi mdi-delete"></i></a>
+                              <?php } ?>
                             </td>
                           </tr>
                       <?php $cnt++;

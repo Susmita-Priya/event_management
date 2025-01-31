@@ -1,5 +1,5 @@
 <?php
-include('config/db.php');
+include('includes/auth.php');
 
     if (isset($_POST['eventId'])) {
         $eventId = $_POST['eventId'];

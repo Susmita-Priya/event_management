@@ -45,7 +45,7 @@ if (isset($_POST['submit'])) {
                                     if ($query->rowCount() > 0) {
                                         foreach ($results as $row) {
                                     ?>
-                                            <form method="post">
+                                        <form method="post">
                                                 <div class="form-group row">
                                                     <label class="col-12" for="register1-email">First Name:
                                                     </label>
@@ -77,23 +77,19 @@ if (isset($_POST['submit'])) {
                                                         <input type="text" class="form-control" name="createDate" value="<?php echo $row->created_at; ?>" readonly="true">
                                                     </div>
                                                 </div>
+                                                <br>
+                                                <button type="submit" name="submit" class="btn btn-primary btn-fw mr-2" style="float: left;">update</button>
+                                        </form>
                                 </div>
-                       
-                        <br>
-                        <button type="submit" name="submit" class="btn btn-primary btn-fw mr-2" style="float: left;">update</button>
-                        </form>
-                            </div>
-                             <?php }
+                                     <?php }
                                     } ?>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         <?php @include("includes/footer.php"); ?>
     </div>
-
     <?php @include("includes/foot.php"); ?>
 </body>
-
 </html>

@@ -45,7 +45,7 @@ if (strlen($_SESSION['id']) == 0) {
             <div class="form-group">
                 <label for="permissions">Permissions</label>
                 <?php
-                $sql = "SELECT * FROM permission";
+                $sql = "SELECT * FROM permissions";
                 $query = $pdo->prepare($sql);
                 $query->execute();
                 $permissions = $query->fetchAll(PDO::FETCH_OBJ);

@@ -15,23 +15,37 @@
         <li class="nav-item dropdown">
           <a class="nav-link" href="dashboard.php">Dashboard</a>
         </li>
+        <?php if (check_permission('event_management')) { ?>
         <li class="nav-item dropdown">
           <a class="nav-link" href="manageEvent.php">Manage Events</a>
         </li>
+        <?php } ?>
+        <?php if (check_permission('attendee_reg')) { ?>
         <li class="nav-item dropdown">
           <a class="nav-link" href="attendeeReg.php">Attendee Registration</a>
         </li>
+        <?php } ?>
+        <?php if (check_permission('reports')) { ?>
         <li class="nav-item dropdown">
           <a class="nav-link" href="report.php">Reports</a>
         </li>
+        <?php } ?>
+        <?php if (check_permission('management user')) { ?>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">User management</a>
             <div class="dropdown-menu  navbar-dropdown" aria-labelledby="dropdown05">
+              <?php if (check_permission('user_management')) { ?>
               <a class="dropdown-item" href="user.php">Manage users</a>
-              <a class="dropdown-item" href="role.php">Roles </a>
-              <!-- <a class="dropdown-item" href="newpermission.php">Add Permission</a> -->
+              <?php } ?>
+              <?php if (check_permission('role_management')) { ?>
+              <a class="dropdown-item" href="role.php">Manage Roles </a>
+              <?php } ?>
+              <?php if (check_permission('permission_management')) { ?>
+              <a class="dropdown-item" href="permission.php">Manage Permissions</a>
+              <?php } ?>
             </div>
         </li>
+        <?php } ?>
       </ul>
       <ul class="navbar-nav navbar-nav-right">
         <li class="nav-item nav-profile dropdown">
@@ -58,11 +72,16 @@
           } ?>
 
           <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+          <?php if (check_permission('profile_edit')) { ?>
             <a class="dropdown-item" href="profile.php">
               <i class="mdi mdi-account mr-2 text-success"></i> Profile </a>
+
             <div class="dropdown-divider"></div>
+            <?php } ?>
+            <?php if (check_permission('change_password')) { ?>
             <a class="dropdown-item" href="changePassword.php"><i class="mdi mdi-key mr-2 text-success"></i> Change Password </a>
             <div class="dropdown-divider"></div>
+            <?php } ?>
             <a class="dropdown-item" href="logout.php">
               <i class="mdi mdi-logout mr-2 text-danger"></i> Signout </a>
           </div>

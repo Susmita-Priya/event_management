@@ -1,7 +1,8 @@
 <?php
 session_start();
 error_reporting(0);
-include('config/db.php');
+include('includes/auth.php');
+check_login();
 
 
 if (strlen($_SESSION['id']) == 0) {
@@ -22,20 +23,27 @@ if (strlen($_SESSION['id']) == 0) {
     // Verify current password
     if ($result && password_verify($currentPassword, $result->password)) {
       $newPassword = $_POST['newPassword'];
-      $hashed_newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
 
-      // Update password
-      $con = "UPDATE user SET password=:hashed_newPassword WHERE id=:id";
-      $chngpwd1 = $pdo->prepare($con);
-      $chngpwd1->bindParam(':id', $id, PDO::PARAM_STR);
-      $chngpwd1->bindParam(':hashed_newPassword', $hashed_newPassword, PDO::PARAM_STR); // Correct placeholder
-      $chngpwd1->execute();
+      // Check if new password is the same as the current password
+      if (password_verify($newPassword, $result->password)) {
+        echo '<script>alert("New password cannot be the same as the current password.")</script>';
+      } else {
+        $hashed_newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
 
-      echo '<script>alert("Your password has been successfully changed.")</script>';
-      echo "<script>window.location.href ='dashboard.php'</script>";
+        // Update password
+        $con = "UPDATE user SET password=:hashed_newPassword WHERE id=:id";
+        $chngpwd1 = $pdo->prepare($con);
+        $chngpwd1->bindParam(':id', $id, PDO::PARAM_STR);
+        $chngpwd1->bindParam(':hashed_newPassword', $hashed_newPassword, PDO::PARAM_STR); // Correct placeholder
+        $chngpwd1->execute();
+
+        echo '<script>alert("Your password has been successfully changed.")</script>';
+        echo "<script>window.location.href ='dashboard.php'</script>";
+      }
     } else {
       echo '<script>alert("Your current password is incorrect.")</script>';
     }
+  
   }
 ?>
 <!DOCTYPE html>

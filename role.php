@@ -4,6 +4,10 @@ check_login();
 
 // Code for deleting role
 if (isset($_GET['delId'])) {
+  if (!check_permission('role_delete')) {
+    echo "<script>alert('You do not have permission to delete roles');</script>";
+    exit();
+  }
   $id = intval($_GET['delId']);
   $sql = "DELETE FROM roles WHERE role_id = :id";
   $query = $pdo->prepare($sql);
@@ -15,6 +19,10 @@ if (isset($_GET['delId'])) {
 
 // Code for updating role
 if (isset($_POST['update'])) {
+  if (!check_permission('role_edit')) {
+    echo "<script>alert('You do not have permission to edit roles');</script>";
+    exit();
+  }
   $id = intval($_GET['id']);
   $role_name = $_POST['role_name'];
   $permissions = $_POST['permissions'] ?? [];
@@ -76,9 +84,13 @@ if (isset($_POST['update'])) {
                     <div class="modal-content">
                       <div class="modal-header">
                         <h4 class="modal-title">Add New Role</h4>
+
+                        <?php if (check_permission('role_add')) { ?>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
+                        <?php } ?>
+
                       </div>
                       <div class="modal-body">
                         <?php @include("newRole.php"); ?>
@@ -111,10 +123,12 @@ if (isset($_POST['update'])) {
                           <tr>
                             <td class="text-center"><?php echo htmlentities($cnt); ?></td>
                             <td><?php echo htmlentities($role->role_name); ?></td>
-                            <td class="text-center">
+                            <td class="text-left">
 
                               <!-- View Role -->
+                              <?php if (check_permission('role_view')) { ?>
                               <a href="#" class="rounded btn btn-info btn-sm" data-toggle="modal" data-target="#viewRole<?php echo ($role->role_id); ?>" title="View"><i class="mdi mdi-eye"></i></a>
+                              <?php } ?>
                               <div class="modal fade" id="viewRole<?php echo ($role->role_id); ?>">
                                 <div class="modal-dialog modal-md">
                                   <div class="modal-content">
@@ -127,7 +141,7 @@ if (isset($_POST['update'])) {
                                       <p><strong>Permissions:</strong></p>
                                       <ul>
                                         <?php
-                                        $sql = "SELECT p.permission_name FROM role_permissions rp JOIN permission p ON rp.permission_id = p.permission_id WHERE rp.role_id = :role_id";
+                                        $sql = "SELECT p.permission_name FROM role_permissions rp JOIN permissions p ON rp.permission_id = p.permission_id WHERE rp.role_id = :role_id";
                                         $query = $pdo->prepare($sql);
                                         $query->bindParam(':role_id', $role->role_id, PDO::PARAM_STR);
                                         $query->execute();
@@ -146,7 +160,9 @@ if (isset($_POST['update'])) {
                               </div>
 
                               <!-- Update Role -->
+                              <?php if (check_permission('role_edit')) { ?>
                               <button type="button" class="rounded btn btn-sm btn-success" data-toggle="modal" data-target="#updateRole<?php echo $role->role_id; ?>" title="Edit"><i class="mdi mdi-pencil"></i></button>
+                              <?php } ?>
                               <div class="modal fade" id="updateRole<?php echo ($role->role_id); ?>">
                                 <div class="modal-dialog modal-md">
                                   <div class="modal-content">
@@ -169,7 +185,7 @@ if (isset($_POST['update'])) {
                                             <div class="form-group">
                                               <label for="permissions">Permissions</label>
                                               <?php
-                                              $sql = "SELECT * FROM permission";
+                                              $sql = "SELECT * FROM permissions";
                                               $query = $pdo->prepare($sql);
                                               $query->execute();
                                               $permissions = $query->fetchAll(PDO::FETCH_OBJ);
@@ -183,7 +199,7 @@ if (isset($_POST['update'])) {
                                                 if ($check_query->rowCount() > 0) {
                                                   $checked = true;
                                                 }
-                                                echo "<div class='form-check'>
+                                                echo "<div class='form-check' style='margin-left: 40px;'>
                                                         <input type='checkbox' name='permissions[]' value='$permission->permission_id' class='form-check-input' id='permission_$permission->permission_id' " . ($checked ? 'checked' : '') . ">
                                                         <label class='form-check-label' for='permission_$permission->permission_id'>$permission->permission_name</label>
                                                       </div>";
@@ -203,7 +219,9 @@ if (isset($_POST['update'])) {
                               </div>
 
                               <!-- Delete Role -->
+                              <?php if (check_permission('role_delete')) { ?>
                               <a href="role.php?delId=<?php echo ($role->role_id); ?>" onclick="return confirm('Do you really want to Delete?');" class="rounded btn btn-danger btn-sm" title="Delete"><i class="mdi mdi-delete"></i></a>
+                              <?php } ?>
                             </td>
                           </tr>
                       <?php $cnt++;
@@ -220,7 +238,6 @@ if (isset($_POST['update'])) {
     </div>
   </div>
   <?php @include("includes/footer.php"); ?>
-  </div>
   <?php @include("includes/foot.php"); ?>
 </body>
 

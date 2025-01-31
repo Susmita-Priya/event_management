@@ -3,6 +3,9 @@ session_start();
 error_reporting(0);
 include('config/db.php');
 
+if (strlen($_SESSION['id']) == 0) {
+  header('location:logout.php');
+} else {
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['bookingId'])) {
   $id = $_POST['bookingId'];
   $sql = "SELECT booking.bookingId as BookingID, booking.name as Name, booking.phone as MobileNumber, booking.email as Email, booking.gender, booking.guestNo, booking.payment, event.event_name as EventName, event.pincode, event.venue, event.category_name, event.start_date , event.start_time, event.end_date, event.end_time from booking join event on booking.eventId=event.id where booking.id=:id";
@@ -72,5 +75,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['bookingId'])) {
       <?php
     }
   }
+}
 }
 ?>

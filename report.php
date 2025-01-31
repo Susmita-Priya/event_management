@@ -39,7 +39,11 @@ check_login();
                         </div>
                       </div>
                     </div>
+
+                    <?php if (check_permission('search_event')) { ?>
                     <button type="submit" name="search" class="btn btn-info btn-sm mb-4">Search</button>
+                    <?php } ?>
+
                   </form>
                 </div>
               </div>
@@ -54,10 +58,10 @@ check_login();
                 <h4 align="center" style="color:blue">Attendee List for <?php echo htmlentities($events[array_search($eventId, array_column($events, 'id'))]->event_name); ?> - <?php echo htmlentities($events[array_search($eventId, array_column($events, 'id'))]->pincode); ?></h4>
                 <p align="center">
               Event Venue: <?php echo htmlentities($events[array_search($eventId, array_column($events, 'id'))]->venue); ?><br>
-            Start: <?php echo htmlentities($events[array_search($eventId, array_column($events, 'id'))]->start_date); ?>,
-            <?php echo htmlentities($events[array_search($eventId, array_column($events, 'id'))]->start_time); ?><br>
-            End:<?php echo htmlentities($events[array_search($eventId, array_column($events, 'id'))]->end_date); ?>,
-            <?php echo htmlentities($events[array_search($eventId, array_column($events, 'id'))]->end_time); ?><br>
+              Start: <?php echo htmlentities($events[array_search($eventId, array_column($events, 'id'))]->start_date); ?>,
+              <?php echo htmlentities($events[array_search($eventId, array_column($events, 'id'))]->start_time); ?><br>
+              End:<?php echo htmlentities($events[array_search($eventId, array_column($events, 'id'))]->end_date); ?>,
+              <?php echo htmlentities($events[array_search($eventId, array_column($events, 'id'))]->end_time); ?><br>
               <hr />
               <table class="table align-items-center table-flush table-hover table-bordered" id="dataTableHover">
                 <thead>
@@ -97,16 +101,20 @@ check_login();
                           <span class="badge badge-info"><?php echo htmlentities($row->status); ?></span>
                         </td>
                         <td class="text-center" >
+                          <?php if (check_permission('view_booking')) { ?>
                             <a href="#"  class="view_data btn btn-info rounded" id="<?php echo  ($row->id); ?>" title="View"><i class="mdi mdi-eye" aria-hidden="true"></i></a>
+                          <?php } ?>
                             <!-- View Modal -->
                             <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
                               <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                   <div class="modal-header">
                                     <h5 class="modal-title" id="viewModalLabel">Booking Details</h5>
+                                    <?php if (check_permission('view_booking')) { ?>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                       <span aria-hidden="true">&times;</span>
                                     </button>
+                                    <?php } ?>
                                   </div>
                                   <div class="modal-body" id="bookingDetails">
                                     <!-- Booking details will be loaded here-->
@@ -134,8 +142,12 @@ check_login();
                               });
                             });
                             </script>
+
+                            <?php if (check_permission('download_pdf')) { ?>
                             <a href="invoiceGenerating.php?id=<?php echo htmlentities($row->id); ?>" class="btn btn-primary rounded" title="print"><i class="mdi mdi-printer" aria-hidden="true"></i></a>
-                        </td>
+                            <?php } ?>
+
+                          </td>
                       </tr>
                       <?php $cnt++; 
                     } 
@@ -148,7 +160,11 @@ check_login();
               </table>
               <form method="post" action="downloadCSV.php">
                 <input type="hidden" name="eventId" value="<?php echo htmlentities($eventId); ?>">
+
+                <?php if (check_permission('download_csv')) { ?>
                 <button type="submit" class="btn btn-success mt-4">Download CSV</button>
+                <?php } ?>
+
               </form>
             </div>
             <?php
@@ -156,8 +172,8 @@ check_login();
           ?>
         </div>
       </div>
-     
-    </div> <?php @include("includes/footer.php"); ?>
+    </div>
+     <?php @include("includes/footer.php"); ?>
   </div>
   <?php @include("includes/foot.php"); ?>
 </body>

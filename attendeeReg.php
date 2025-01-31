@@ -3,6 +3,10 @@ include('includes/auth.php');
 check_login();
 
 if (isset($_POST['submit'])) {
+  if (!check_permission('attendee_reg')) {
+    echo "<script>alert('You do not have permission to attendee registration');</script>";
+    exit();
+  }
   $id = $_GET['id'];
   $bookingId = mt_rand(100000000, 999999999);
   $name = $_POST['name'];
@@ -79,24 +83,24 @@ if (isset($_POST['submit'])) {
                   <h4 class="card-title">New Registration</h4>
                 </div>
                 <div class="card-body">
-                  <form method="POST" id="contactForm" name="contactForm" class="contactForm">
+                  <form method="POST" >
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="label" for="name">Full Name</label>
-                          <input type="text" class="form-control" name="name" id="name" placeholder="Name">
+                          <input type="text" class="form-control" name="name" id="name" placeholder="Name" required="true">
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="label" for="email">Email Address</label>
-                          <input type="email" class="form-control" name="email" id="email" placeholder="Email">
+                          <input type="email" class="form-control" name="email" id="email" placeholder="Email" required="true">
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="label" for="phone">Contact No</label>
-                          <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone No" maxlength="13">
+                          <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone No" maxlength="13" required="true">
                         </div>
                       </div>
                       <div class="col-md-6">
@@ -117,7 +121,7 @@ if (isset($_POST['submit'])) {
                           <select class="form-control" name="eventId" id="eventId" required="true" onchange="setEventDetails()">
                             <option value="">Choose Event</option>
                             <?php
-                            $sql2 = "SELECT * FROM event";
+                            $sql2 = "SELECT * FROM event where status = 'Active'";
                             $query2 = $pdo->prepare($sql2);
                             $query2->execute();
                             $events = $query2->fetchAll(PDO::FETCH_OBJ);

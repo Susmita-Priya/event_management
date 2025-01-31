@@ -7,7 +7,7 @@ if (strlen($_SESSION['id']) == 0) {
   header('location:logout.php');
 } else {
   if (isset($_POST['submit'])) {
-    $first_name = $_POST['firstName'];
+  $first_name = $_POST['firstName'];
   $last_name = $_POST['lastName'];
   $email = $_POST['email'];
   $phone = $_POST['phone'];

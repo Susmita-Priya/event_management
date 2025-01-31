@@ -1,4 +1,6 @@
 <?php
+session_start();
+error_reporting(0);
 include('includes/auth.php');
 check_login();
 ?>
@@ -8,13 +10,11 @@ check_login();
 <body>
   <div class="container-scroller">
     
-    <?php @include("includes/header.php");?>
-    
     <div class="container-fluid page-body-wrapper">
       <div class="main-panel">
         <div class="content-wrapper">
 
-          <div class="row" id="exampl">
+          <div class="row" id="pdf">
             <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 
@@ -32,7 +32,7 @@ check_login();
                     foreach($results as $row)
                     { 
                       ?>
-                      <table  border="1" class="table align-items-center table-bordered table-hover">
+                      <table border="1" class="table align-items-center table-bordered table-hover">
                         <tr>
                           <th colspan="5" style="text-align: center;color: blue;font-size: 20px">Booking Number: <?php  echo $row->BookingID;?></th>
                         </tr>
@@ -83,7 +83,7 @@ check_login();
                       <?php } } ?>
 
                   </table> 
-                  <p style="margin-top:1%"  align="center">
+                  <p style="margin-top:1%" align="center">
                     <i class="mdi mdi-printer fa-2x" style="cursor: pointer; font-size: 30px; "  OnClick="CallPrint(this.value)" ></i>
                   </p>
                 </div>
@@ -95,14 +95,13 @@ check_login();
       </div>
      
     </div>
-     <?php @include("includes/footer.php"); ?>
   </div>
   
   <?php @include("includes/foot.php");?>
   
   <script>
     function CallPrint(strid) {
-      var prtContent = document.getElementById("exampl");
+      var prtContent = document.getElementById("pdf");
       var WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
       WinPrint.document.write(prtContent.innerHTML);
       WinPrint.document.close();

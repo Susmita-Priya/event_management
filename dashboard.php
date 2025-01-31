@@ -42,7 +42,7 @@ check_login();
                         <h4 class="font-weight-normal mb-3">Upcoming Events
                         </h4>
                         <?php
-                        $sql = "SELECT id FROM event WHERE start_date >= CURDATE()";
+                        $sql = "SELECT id FROM event WHERE start_date >= CURDATE() AND status = 'Active'" ;
                         $query = $pdo->prepare($sql);
                         $query->execute();
                         $results = $query->fetchAll(PDO::FETCH_OBJ);
@@ -98,7 +98,7 @@ check_login();
 
                   <tbody>
                     <?php
-                    $sql = "SELECT * FROM event WHERE start_date >= CURDATE() ORDER BY start_date ASC";
+                    $sql = "SELECT * FROM event WHERE start_date >= CURDATE() AND status = 'Active' ORDER BY start_date ASC";
                     $query = $pdo->prepare($sql);
                     $query->execute();
                     $results = $query->fetchAll(PDO::FETCH_OBJ);
