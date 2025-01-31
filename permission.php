@@ -75,7 +75,7 @@ if (isset($_POST['update'])) {
                         <?php } ?>
                       </div>
                       <div class="modal-body">
-                        <?php @include("newpermission.php"); ?>
+                        <?php @include("newPermission.php"); ?>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
