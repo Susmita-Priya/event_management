@@ -1,5 +1,3 @@
-Thank you for the clarification! Below is the updated **README** file with the **User Management** module restructured into a single module with three sub-menus: **User Manage**, **Role Manage**, and **Permission Manage**. This structure ensures a more organized and intuitive user interface.
-
 ---
 
 # Ollyo Event Management System
