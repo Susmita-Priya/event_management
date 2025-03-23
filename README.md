@@ -1,5 +1,3 @@
----
-
 # Ollyo Event Management System
 
 The **Ollyo Event Management System** is a comprehensive platform designed to simplify event management for organizers and attendees. It provides a seamless experience for creating, managing, and attending events, along with robust user authentication, role-based access control, and reporting features. This system is ideal for event organizers who want to streamline event planning, attendee registration, and reporting.
